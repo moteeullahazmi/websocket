@@ -1,9 +1,20 @@
-import React from 'react'
+
+import { useEffect, useState } from "react"
 import "./App.css"
 const App = () => {
-  function sendMessage(){
+  const [socket, setSocket] = useState();
 
+  function sendMessage(){
+    ws.send("ping")
   }
+
+  useEffect(()=>{
+    const ws = new WebSocket("ws://localhost:8080");
+    setSocket(ws)
+    ws.onmessage = (e) =>{
+      console.log(e.data)
+    }
+  },[])
   return (
     <div>
       <input type="text" placeholder='Message.....' />

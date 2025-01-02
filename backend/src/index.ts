@@ -5,11 +5,15 @@ const wss = new WebSocketServer({port:8080})
 // event handler
 wss.on("connection",function(socket){
     console.log("user connected")
-    
-  
+      
     socket.on("message",(e)=>{
-        if(e.toString()){
-            socket.send(e.toString())
+        if(e.toString() === "ping"){
+            socket.send("pong")
         }
     })
+
+    // setInterval(() => {
+    //     //@ts-ignore
+    //     socket.send("Hello")
+    // }, 500);
 })
